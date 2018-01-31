@@ -7,7 +7,7 @@ Faulds is an iterative OS fingeprinting algorithm for measurement over large sca
 
 Faulds is written in C++ compiled on Windows using VS2015.
 
-The Visual Studio project files use the Windows library for multi-threading and hence compile in Win32/64. It also includes all the databases used to test Faulds (3 signature toy database, 116 OS Hershel DB, 420 OS Hershel+ DB). Other files included are winvals, mssvals, optvals, rstvals -- which contain probabilities of values observed for these header fields in our Internet scan. These files are used to generate simulated samples.
+The Visual Studio project files use the Windows library for multi-threading and hence compile in Win32/64. It also includes all the databases used to test Faulds (3 signature toy DB from the paper, 116 OS Hershel DB, 420 OS Hershel+ DB). Other files included are winvals, mssvals, optvals, rstvals -- which contain probabilities of values observed for these header fields in our Internet scan. These files are used to generate simulated samples.
  
 Running: `Faulds.exe <restart_previous_run> <database_file> <observations_file>` 
 
@@ -17,6 +17,8 @@ All the command line args are optional, it will default to start a new run with 
 
 Running Faulds will generate several files. If running with simulated samples, the generation code will output several files prefixed with `real_`. These contain the "real" distributions of the simulated dataset for ground truth. It will also write the ground truth alphas to `alphas.txt`.
 The Faulds algorithm itself will output files for each parameter (e.g., `owd_dist.txt` contains recovered one-way delay distributions). Each row of the file corresponds to one iteration. Distributions for user features and final classification results are output after the last iteration. 
+
+After each iteration, Faulds writes the currently recovered distribution to `iteration_state.bin`. This can be used as a checkpoint to restart Faulds from this point (the same dataset and database must be provided). 
 
 ### OS Signatures
 
@@ -40,7 +42,7 @@ The data files containing the OS and Internet signatures have mostly the same te
     double RTO3_timestamp
     ...
 
-420OS_db.txt contains the database signatures, 420OS_mapping.txt maps plain text labels to signature data in the database, and observations.txt contains sample observed signatures that are to be classified using the Hershel+ algorithm. 
+`3-signatures.txt`, `116OS_db.txt`, and `420OS_db.txt` contain the database signatures, `420OS_mapping.txt` maps plain text labels to signature data in the database for the 420 database, and `test_observations.txt` contains sample observed signatures for testing. Note that Faulds does not work optimally with this small number of samples. 
 
 
 # Publication
