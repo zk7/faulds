@@ -1,5 +1,5 @@
 # Faulds
-Faulds is an iterative OS fingeprinting algorithm for measurement over large scans. It uses the Expectation-Maximization (EM) framework along with an existing classifier (Hershel+ in this case) to iteratively keep re-classifying the same dataset. Using this procedure it can rebuild the probability distributions of the unknown parameters. In the problem of single-probe OS fingerprinting, Faulds recovers empirical distribution of network delays, packet loss, and modification of TCP header fields by end-users seen in the captured data.
+Faulds is an iterative OS fingerprinting algorithm for measurement over large scans. It uses the Expectation-Maximization (EM) framework along with an existing classifier (Hershel+ in this case) to iteratively keep re-classifying the same dataset while learning the underlying parameters of the data. In the problem of single-probe OS fingerprinting, Faulds recovers empirical distributions of network delays, packet loss, and modification of TCP header fields by end-users seen in the scan.
 
 **NOTE:** Faulds relies on having a large enough dataset for EM to work and can only improve accuracy over previous methods if it has enough data to learn empirical distributions. If you are working with a small set of observations, or are just interested in a live tool for OS fingerprinting remote hosts, please see [Hershel+](https://github.com/zk7/hershelplus).
 
@@ -11,7 +11,7 @@ The Visual Studio project files use the Windows library for multi-threading and 
  
 Running: `Faulds.exe <restart_previous_run> <database_file> <observations_file>` 
 
-All the command line args are optional, it will default to start a new run with the files present in the folder. Simulation parameters and number of EM iterations have to be changed in the code. 
+All the commandline args are optional, it will default to start a new run with the files present in the folder. Simulation parameters and number of EM iterations have to be changed in the code. 
 
 ### Generated files
 
@@ -22,7 +22,7 @@ After each iteration, Faulds writes the currently recovered distribution to `ite
 
 ### OS Signatures
 
-The data files containing the OS and Internet signatures have mostly the same text format. For the files in the multi-platform folder, this is format:
+The data files containing the OS and Internet signatures have the same text format:
 
     int id
     int tcp_window
